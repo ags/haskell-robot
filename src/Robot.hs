@@ -1,5 +1,7 @@
 module Robot(Robot(..), Direction(..), simulate, right, left) where
 
+import Control.Arrow (first, second)
+
 import Robot.Command
 import Robot.Table
 
@@ -12,10 +14,10 @@ data Direction = North
 data Robot = Robot Direction Position deriving (Show)
 
 nextPosition :: Direction -> Position -> Position
-nextPosition North (x, y) = (x, succ y)
-nextPosition East (x, y) = (succ x, y)
-nextPosition South (x, y) = (x, pred y)
-nextPosition West (x, y) = (pred x, y)
+nextPosition North = second succ
+nextPosition East = first succ
+nextPosition South = second pred
+nextPosition West = first pred
 
 right :: Direction -> Direction
 right d
